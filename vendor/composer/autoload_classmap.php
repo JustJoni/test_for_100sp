@@ -7,4 +7,15 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
+    'TestSolution\\App' => $baseDir . '/app/App.php',
+    'TestSolution\\DownloadPage' => $baseDir . '/app/DownloadPage.php',
+    'TestSolution\\ProductsList' => $baseDir . '/app/ProductsList.php',
+    'TestSolution\\ProductsListAttention' => $baseDir . '/app/ProductsListAttention.php',
+    'TestSolution\\ProductsListDiscount' => $baseDir . '/app/ProductsListDiscount.php',
+    'TestSolution\\ProductsListFastDelivery' => $baseDir . '/app/ProductsListFastDelivery.php',
+    'TestSolution\\ProductsListFood' => $baseDir . '/app/ProductsListFood.php',
+    'TestSolution\\ProductsListNew' => $baseDir . '/app/ProductsListNew.php',
+    'TestSolution\\ProductsListPopular' => $baseDir . '/app/ProductsListPopular.php',
+    'TestSolution\\ProductsListSP' => $baseDir . '/app/ProductsListSP.php',
 );
