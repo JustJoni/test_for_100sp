@@ -1,6 +1,19 @@
 {
+    "name": "test/testsolution",
+    "description": "Тестовое задание",
+    "keywords": ["app", "TestSolution"],
+    "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "^7.4",
         "symfony/dom-crawler": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TestSolution\\": "app/"
+        },
+        "classmap": [
+            "database/",
+            "app/"
+        ]
     }
 }

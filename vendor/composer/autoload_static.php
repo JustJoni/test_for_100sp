@@ -16,6 +16,10 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'TestSolution\\' => 13,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -40,6 +44,10 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
     );
 
     public static $prefixDirsPsr4 = array (
+        'TestSolution\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -81,6 +89,24 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+<<<<<<< HEAD
+=======
+        'ProductsListYouSee' => __DIR__ . '/../..' . '/app/ProductsListYouSee.php',
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
+        'TestSolution\\App' => __DIR__ . '/../..' . '/app/App.php',
+        'TestSolution\\DownloadPage' => __DIR__ . '/../..' . '/app/DownloadPage.php',
+        'TestSolution\\ProductsList' => __DIR__ . '/../..' . '/app/ProductsList.php',
+        'TestSolution\\ProductsListAttention' => __DIR__ . '/../..' . '/app/ProductsListAttention.php',
+        'TestSolution\\ProductsListDiscount' => __DIR__ . '/../..' . '/app/ProductsListDiscount.php',
+        'TestSolution\\ProductsListFastDelivery' => __DIR__ . '/../..' . '/app/ProductsListFastDelivery.php',
+        'TestSolution\\ProductsListFood' => __DIR__ . '/../..' . '/app/ProductsListFood.php',
+        'TestSolution\\ProductsListNew' => __DIR__ . '/../..' . '/app/ProductsListNew.php',
+        'TestSolution\\ProductsListPopular' => __DIR__ . '/../..' . '/app/ProductsListPopular.php',
+        'TestSolution\\ProductsListSP' => __DIR__ . '/../..' . '/app/ProductsListSP.php',
+<<<<<<< HEAD
+        'TestSolution\\ProductsListYouSee' => __DIR__ . '/../..' . '/app/ProductsListYouSee.php',
+=======
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
     );
 
     public static function getInitializer(ClassLoader $loader)

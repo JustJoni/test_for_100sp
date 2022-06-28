@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'test/testsolution',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '08973139266f82389159f5790b8f8ff952427c45',
+        'reference' => 'e795c00e72780d6d627847f0385da33edea6c092',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '08973139266f82389159f5790b8f8ff952427c45',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'guzzlehttp/guzzle' => array(
             'pretty_version' => '7.4.5',
             'version' => '7.4.5.0',
@@ -142,6 +133,15 @@
             'reference' => '9344f9cb97f3b19424af1a21a3b0e75b0a7d8d7e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'test/testsolution' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'e795c00e72780d6d627847f0385da33edea6c092',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
