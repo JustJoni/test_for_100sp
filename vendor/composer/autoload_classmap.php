@@ -8,6 +8,10 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    'ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 =======
     'ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
 >>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
@@ -22,7 +26,10 @@ return array(
     'TestSolution\\ProductsListPopular' => $baseDir . '/app/ProductsListPopular.php',
     'TestSolution\\ProductsListSP' => $baseDir . '/app/ProductsListSP.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'TestSolution\\ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
+=======
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 =======
 >>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 );

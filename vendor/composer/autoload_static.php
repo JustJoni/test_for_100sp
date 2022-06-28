@@ -90,6 +90,10 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        'ProductsListYouSee' => __DIR__ . '/../..' . '/app/ProductsListYouSee.php',
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 =======
         'ProductsListYouSee' => __DIR__ . '/../..' . '/app/ProductsListYouSee.php',
 >>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
@@ -104,7 +108,10 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
         'TestSolution\\ProductsListPopular' => __DIR__ . '/../..' . '/app/ProductsListPopular.php',
         'TestSolution\\ProductsListSP' => __DIR__ . '/../..' . '/app/ProductsListSP.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
         'TestSolution\\ProductsListYouSee' => __DIR__ . '/../..' . '/app/ProductsListYouSee.php',
+=======
+>>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 =======
 >>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
     );
