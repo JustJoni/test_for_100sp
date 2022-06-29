@@ -3,7 +3,7 @@
         'name' => 'test/testsolution',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e795c00e72780d6d627847f0385da33edea6c092',
+        'reference' => 'e86d899f4d98343fc83791cf9c35290b5b4c2da4',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -100,6 +100,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'symfony/css-selector' => array(
+            'pretty_version' => 'v6.1.0',
+            'version' => '6.1.0.0',
+            'reference' => '05c40f02f621609404b8820ff8bc39acb46e19cf',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/css-selector',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'v3.1.0',
             'version' => '3.1.0.0',
@@ -139,7 +148,7 @@
         'test/testsolution' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e795c00e72780d6d627847f0385da33edea6c092',
+            'reference' => 'e86d899f4d98343fc83791cf9c35290b5b4c2da4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
