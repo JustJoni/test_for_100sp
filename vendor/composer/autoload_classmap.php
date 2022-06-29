@@ -7,29 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    'ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
->>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
-=======
-    'ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
->>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
     'TestSolution\\App' => $baseDir . '/app/App.php',
     'TestSolution\\DownloadPage' => $baseDir . '/app/DownloadPage.php',
     'TestSolution\\ProductsList' => $baseDir . '/app/ProductsList.php',
-    'TestSolution\\ProductsListAttention' => $baseDir . '/app/ProductsListAttention.php',
-    'TestSolution\\ProductsListDiscount' => $baseDir . '/app/ProductsListDiscount.php',
-    'TestSolution\\ProductsListFastDelivery' => $baseDir . '/app/ProductsListFastDelivery.php',
-    'TestSolution\\ProductsListFood' => $baseDir . '/app/ProductsListFood.php',
-    'TestSolution\\ProductsListNew' => $baseDir . '/app/ProductsListNew.php',
-    'TestSolution\\ProductsListPopular' => $baseDir . '/app/ProductsListPopular.php',
-    'TestSolution\\ProductsListSP' => $baseDir . '/app/ProductsListSP.php',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    'TestSolution\\ProductsListYouSee' => $baseDir . '/app/ProductsListYouSee.php',
-=======
->>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
-=======
->>>>>>> 63ad1c08207650e90c799bbebf56e395831cfab5
 );

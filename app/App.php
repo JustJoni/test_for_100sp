@@ -34,5 +34,9 @@ class App
         //здесь будем дёргать страницу, обрабатывать её по кускам и заносить всё в бд
 		$download = new DownloadPage($this->env['URL_PARS']);
 		$page = $download->getPage();
+		
+		$list = new ProductsList($page);
+		$list->parse();
+		
     }
 }

@@ -2,15 +2,26 @@
 
 namespace TestSolution;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 class ProductsList
 {
-    public function __construct()
+	public string $page;
+	
+    public function __construct($page)
     {
-        
+        $this->page = $page;
     }
 
-    public function index()
+    public function parse()
     {
+		$crawler = new Crawler($this->page);
+		$crawler = $crawler->filter('.purchases');
+		foreach ($crawler as $domElement) 
+		{
+			var_dump($domElement->nodeName);
+		}
+		
         return NULL;
     }
 }
