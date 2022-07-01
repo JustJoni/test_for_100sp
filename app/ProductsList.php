@@ -6,23 +6,35 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ProductsList
 {
-	public string $page;
+	private string $page;
 	
-    public function __construct($page)
+    public function __construct(string $page)
     {
         $this->page = $page;
     }
 
     public function parse()
     {
+		$data2 = $this->parsePurchasesBlocks();
+		$data = $this->parsePurchasesSliderBlocks();
+		
+		
+		foreach ($data as $domElement) 
+		{
+			print_r($domElement);
+		}
+		
+		
+        return NULL;
+    }
+	
+	private function parsePurchasesBlocks():array
+	{
 		$crawler = new Crawler($this->page);
-		$test = $crawler->filter('div.purchases.block')->each(function ($node) {
-			
-			if(!empty($node))
-			{
-				$purchasesName = $node->filter('h2 > a')->innerText('Default');
-				var_dump($purchasesName);
-			}
+		$data = $crawler->filter('div.purchases.block')->each(function ($node) {
+			$purchasesName = '';
+			$blocks = [];
+			$purchasesName = $node->filter('h2 > a')->innerText('Default');			
 			$blocks = $node->filter('div.purchase-block')->each(function ($nodeChild) use($purchasesName) {
 				$href = '';
 				$img = '';
@@ -31,23 +43,40 @@ class ProductsList
 				$href = $nodeChild->filter('.properties > div.name > a')->attr('href');
 				$img = $nodeChild->filter('img')->attr('src');
 				$title = $nodeChild->filter('.properties > div.name > a')->innerText('Default');
-
-				var_dump($title);
 				
 				return compact('purchasesName','href','img','title');
 			});
-			
-			
-			$blocks[] = ['purchasesName' => $purchasesName];
 
 			return $blocks;
 		});
-		foreach ($test as $domElement) 
-		{
-			print_r($domElement);
-		}
 		
+		return $data;
+	}
+	
+	private function parsePurchasesSliderBlocks():array
+	{
+		$crawler = new Crawler($this->page);
+		$data = $crawler->filter('div.purchases')->eq(3)->each(function ($node) {
+			$purchasesName = '';
+			$blocks = [];
+			$purchasesName = $node->filter('h2.title')->innerText('Default');
+			$blocks = $node->filter('div.purchase-slider > div.purchase-slider-item')->siblings()
+						->each(function ($nodeChild) use($purchasesName) {
+				$href = '';
+				$img = '';
+				$title = '';
+			
+				$href = $nodeChild->filter('a.purchase-slider-item__image')->attr('href');
+				$img = $nodeChild->filter('a.purchase-slider-item__image')->attr('style');
+				$title = $nodeChild->filter('div.purchase-slider-item > a.purchase-slider-item__title')->innerText('Default');
+				
+				return compact('purchasesName','href','img','title');
+			});
+
+			return $blocks;
+		});
 		
-        return NULL;
-    }
+		return $data;
+	}
+	
 }
