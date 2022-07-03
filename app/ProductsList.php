@@ -12,20 +12,13 @@ class ProductsList
         
     }
 
-    public function parse()
+    public function parse():array
     {
 		$normalBlocks = $this->parsePurchasesBlocks();
 		$sliderBlocks = $this->parsePurchasesSliderBlocks();
 		$blocks = array_merge($normalBlocks, $sliderBlocks);
-		var_dump($blocks);
 		
-		foreach ($blocks as $domElement) 
-		{
-			//print_r($domElement);
-		}
-		
-		
-        return NULL;
+        return $blocks;
     }
 	
 	private function parsePurchasesBlocks():array
@@ -54,8 +47,6 @@ class ProductsList
 	
 	private function parseBlocks(Crawler $crawler, array $classes, bool $sliderBlock = false):array
 	{
-		var_dump($classes);
-		var_dump($sliderBlock);
 		
 		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node, $i) use ($classes, $sliderBlock) {
 			if($sliderBlock && $i == 3 || !$sliderBlock)
