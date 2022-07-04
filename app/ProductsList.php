@@ -45,29 +45,26 @@ class ProductsList
 	}
 	
 	
-	private function parseBlocks(Crawler $crawler, array $classes, bool $sliderBlock = false):array
+	private function parseBlocks(Crawler $crawler, array $classes):array
 	{
 		
-		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node, $i) use ($classes, $sliderBlock) {
-			if($sliderBlock && $i == 3 || !$sliderBlock)
-			{
-				$purchasesName = '';
-				$blocks = [];
-				$purchasesName = $node->filter($classes['purchasesClasses'])->innerText('Default');
-				$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesName, $classes) {
-					$href = '';
-					$img = '';
-					$title = '';
+		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node) use ($classes) {
+			$purchasesName = '';
+			$blocks = [];
+			$purchasesName = $node->filter($classes['purchasesClasses'])->innerText('Default');
+			$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesName, $classes) {
+				$href = '';
+				$img = '';
+				$title = '';
+			
+				$href = $nodeChild->filter($classes['hrefClasses'])->attr('href');
+				$img = $nodeChild->filter($classes['imgClasses'])->attr('src');
+				$title = $nodeChild->filter($classes['titleClasses'])->innerText('Default');
 				
-					$href = $nodeChild->filter($classes['hrefClasses'])->attr('href');
-					$img = $nodeChild->filter($classes['imgClasses'])->attr('src');
-					$title = $nodeChild->filter($classes['titleClasses'])->innerText('Default');
-					
-					return compact('purchasesName','href','img','title');
-				});
+				return compact('purchasesName','href','img','title');
+			});
 
-				return $blocks;
-			}
+			return $blocks;
 		});
 		
 		return $data;
@@ -90,16 +87,16 @@ class ProductsList
 		$crawler = new Crawler($this->page);
 		
 		$classes = [
-			'parentBlocksClasses' => 'div.purchases',
+			'parentBlocksClasses' => 'div.purchases:not(.block)',
 			'purchasesClasses' => 'h2.title',
 			'childrenBlocksClasses' => 'div.purchase-slider > div.purchase-slider-item',
 			'hrefClasses' => 'a.purchase-slider-item__image',
 			'imgClasses' => 'a.purchase-slider-item__image',
 			'titleClasses' => 'div.purchase-slider-item > a.purchase-slider-item__title',
 		];
-		$blocks = $this->parseBlocks($crawler, $classes, true);
-		
-		return $blocks[3];
+		$blocks = $this->parseBlocks($crawler, $classes);
+
+		return $blocks[0];
 	}
 	
 }
