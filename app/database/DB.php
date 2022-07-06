@@ -7,33 +7,24 @@ use PDO;
 class DB
 {
 	private PDO $conn;
-	private string $purchaseTypesTable = 'purchase_type';
-	private array $purchaseTypesTableFields = [
-		'id' => 'int',
-		'type_name' => '',
-		];
-	private string $purchasesTable = 'purchase_test';
-	private array $purchasesTableFields = [
-		'id' => '',
-		'type_id' => '',
-		'' => '',
-		'' => '',
-		'' => '',
-		];
-
+	
     public function __construct(public array $params)
     {
         $this->conn = new PDO("mysql:host=" . $params['DB_ADDRESS'] . ";port=" . $params['DB_PORT'] . ";dbname=" . $params['DB_NAME'], $params['DB_USER'], $params['DB_PASS']);
     }
 
-    public function insert(array $data, string $table)
+    public function insert(array $data, string $table, int $arrayLvl)
     {
-		$this->checkTable($table);
-		$this->clearTable($table);
-		print_r($this->generateSqlInsert($data, $table));
+		$check = $this->checkTable($table);
+		if($check)
+		{
+			
+		}
+		$this->clearTable();
+		print_r($this->generateSqlListToInsert($data));
 	}
 	
-	private function generateSqlInsert(array $data, string $table):string
+	private function generateSqlListToInsert(array $data, string $table):string
 	{
 		$records = '';
 		$lastRecord = array_key_last($data);
@@ -51,21 +42,18 @@ class DB
 		return $sql;
 	}
 	
-	private function clearTables()
+	private function clearTables(string $table)
 	{
-		$this->conn->exec("DELETE " . $table);
+		$this->conn->exec("DELETE FROM" . $table);
 	}
 	
-	private function checkTables()
+	private function checkTable(string $table):bool
 	{
-		$fields = [
-			'' => '',
-			'' => '',
-			'' => '',
-			'' => '',
-			'' => '',
-		];
-		$result = $this->conn->query("SELECT  " . $table);
+		$this->conn->query("USE information_schema;");
+		$result = $this->conn->query('SELECT COUNT(*) AS res FROM information_schema.tables WHERE table_name = "' . $table . '"')->fetch();
+		$this->conn->query("USE " . $this->params['DB_NAME']);
+
+		return $result['res'];
 	}
 	
 	private function createTable()

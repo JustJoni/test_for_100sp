@@ -35,7 +35,7 @@ class App
 		$list = $this->getProductList($page);
 		$productList = $list->productList;
 		$productTypeList = $this->getProductTypeList($list);
-		$this->recordProductsToDb($productList);	
+		$this->recordToDb($productList, $this->env['DB_TABLE_PURCHASES'], 2);	
     }
 	
 	private function getPage():string
@@ -62,9 +62,9 @@ class App
 		return $productTypeList;
 	}
 	
-	private function recordProductsToDb(array $data)
+	private function recordToDb(array $data, string $table, int $arrayLvl)
 	{
 		$db = new DB($this->env);
-		$db->insert($data);
+		$db->insert($data, $table, $arrayLvl);
 	}
 }
