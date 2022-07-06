@@ -12,7 +12,7 @@ class DownloadPage
         
     }
 
-    public function getPage()
+    public function getPage():string
     {
 		$client = new GuzzleHttp\Client([
 		  'base_uri' => $this->url
