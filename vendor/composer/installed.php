@@ -3,7 +3,7 @@
         'name' => 'test/testsolution',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4f9e4247ca5307302a78857437ca7e55ffd95b7b',
+        'reference' => 'e86d899f4d98343fc83791cf9c35290b5b4c2da4',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -110,8 +110,8 @@
             'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
-            'pretty_version' => 'v3.1.1',
-            'version' => '3.1.1.0',
+            'pretty_version' => 'v3.1.0',
+            'version' => '3.1.0.0',
             'reference' => '07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
@@ -148,7 +148,7 @@
         'test/testsolution' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4f9e4247ca5307302a78857437ca7e55ffd95b7b',
+            'reference' => 'e86d899f4d98343fc83791cf9c35290b5b4c2da4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
