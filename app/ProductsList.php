@@ -6,20 +6,30 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ProductsList
 {
+	public array $productList;
 	
     public function __construct(private string $page)
     {
         
     }
 
-    public function parse():array
+    public function getProductList()
     {
 		$normalBlocks = $this->parsePurchasesBlocks();
 		$sliderBlocks = $this->parsePurchasesSliderBlocks();
-		$blocks = array_merge($normalBlocks, $sliderBlocks);
-		
-        return $blocks;
+		$this->productList = array_merge($normalBlocks, $sliderBlocks);
     }
+	
+	public function getProductTypeList(array $productList):array
+	{
+		$productTypeList = array();
+		foreach($productList as $key=>$product)
+		{
+			$productTypeList[$product['purchasesName']] = $product['purchasesName'];
+		}
+		
+		return $productTypeList;
+	}
 	
 	private function parsePurchasesBlocks():array
 	{

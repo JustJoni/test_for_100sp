@@ -32,7 +32,9 @@ class App
     public function run()
     {        
 		$page = $this->getPage();
-		$productList = $this->getProductList($page);
+		$list = $this->getProductList($page);
+		$productList = $list->productList;
+		$productTypeList = $this->getProductTypeList($list);
 		$this->recordProductsToDb($productList);	
     }
 	
@@ -44,17 +46,25 @@ class App
 		return $page;
 	}
 	
-	private function getProductList(string $page):array
+	private function getProductList(string $page):ProductsList
 	{
 		$list = new ProductsList($page);
-		$productList = $list->parse();
+		$list->getProductList();
 		
-		return $productList;
+		return $list;
+	}
+	
+	private function getProductTypeList(ProductsList $list):array
+	{
+		$productTypeList = array();
+		$productTypeList = $list->getProductTypeList($list->productList);
+
+		return $productTypeList;
 	}
 	
 	private function recordProductsToDb(array $data)
 	{
 		$db = new DB($this->env);
-		$db->insert($data, $this->env["DB_TABLE"]);
+		$db->insert($data);
 	}
 }
