@@ -45,20 +45,20 @@ class ProductsList
 	}
 	
 	
-	private function parseBlocks(Crawler $crawler, array $classes):array
+	private function parseBlocks(Crawler $crawler, array $classes, string $imgAttr = 'src'):array
 	{
 		
-		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node) use ($classes) {
+		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node) use ($classes, $imgAttr) {
 			$purchasesName = '';
 			$blocks = [];
 			$purchasesName = $node->filter($classes['purchasesClasses'])->innerText('Default');
-			$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesName, $classes) {
+			$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesName, $classes, $imgAttr) {
 				$href = '';
 				$img = '';
 				$title = '';
 			
 				$href = $nodeChild->filter($classes['hrefClasses'])->attr('href');
-				$img = $nodeChild->filter($classes['imgClasses'])->attr('src');
+				$img = $nodeChild->filter($classes['imgClasses'])->attr($imgAttr);
 				$title = $nodeChild->filter($classes['titleClasses'])->innerText('Default');
 				
 				return compact('purchasesName','href','img','title');
@@ -84,6 +84,7 @@ class ProductsList
 	private function parsePurchasesSliderBlocks():array
 	{
 		$blocks = array();
+		$data = array();
 		$crawler = new Crawler($this->page);
 		
 		$classes = [
@@ -94,9 +95,18 @@ class ProductsList
 			'imgClasses' => 'a.purchase-slider-item__image',
 			'titleClasses' => 'div.purchase-slider-item > a.purchase-slider-item__title',
 		];
-		$blocks = $this->parseBlocks($crawler, $classes);
+		$imgAttr = 'style';
+		$data = $this->parseBlocks($crawler, $classes, $imgAttr);
+		
+		foreach($data[0] as $key=>$block)
+		{
+			$blocks[$key] = $block;
+			$img = array();
+			preg_match("/\"(.+)\"/",$block['img'],$img);
+			$blocks[$key]['img'] = $img[1];
+		}
 
-		return $blocks[0];
+		return $blocks;
 	}
 	
 }
