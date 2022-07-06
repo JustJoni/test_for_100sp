@@ -30,13 +30,31 @@ class App
     }
 
     public function run()
-    {
-        //здесь будем дёргать страницу, обрабатывать её по кускам и заносить всё в бд
+    {        
+		$page = $this->getPage();
+		$productList = $this->getProductList($page);
+		$this->recordProductsToDb($productList);	
+    }
+	
+	private function getPage():string
+	{
 		$download = new DownloadPage($this->env['URL_PARS']);
 		$page = $download->getPage();
 		
+		return $page;
+	}
+	
+	private function getProductList(string $page):array
+	{
 		$list = new ProductsList($page);
-		$list->parse();
+		$productList = $list->parse();
 		
-    }
+		return $productList;
+	}
+	
+	private function recordProductsToDb(array $data)
+	{
+		$db = new DB($this->env);
+		$db->insert($data, $this->env["DB_TABLE"]);
+	}
 }
