@@ -13,7 +13,7 @@
             "TestSolution\\": "app/"
         },
         "classmap": [
-            "database/",
+            "app/database/",
             "app/"
         ]
     }

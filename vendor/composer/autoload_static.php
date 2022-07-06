@@ -95,6 +95,7 @@ class ComposerStaticInit35c1f06e9828c006465f662871d497ed
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'TestSolution\\App' => __DIR__ . '/../..' . '/app/App.php',
+        'TestSolution\\DB' => __DIR__ . '/../..' . '/app/database/DB.php',
         'TestSolution\\DownloadPage' => __DIR__ . '/../..' . '/app/DownloadPage.php',
         'TestSolution\\ProductsList' => __DIR__ . '/../..' . '/app/ProductsList.php',
     );
