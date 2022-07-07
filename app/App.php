@@ -35,7 +35,8 @@ class App
 		$list = $this->getProductList($page);
 		$productList = $list->productList;
 		$productTypeList = $this->getProductTypeList($list);
-		$this->recordToDb($productList, $this->env['DB_TABLE_PURCHASES'], 2);	
+		//$this->recordTypesToDb($productTypeList, $this->env['DB_TABLE_TYPES']);
+		$this->recordPurchaseToDb($productList, $this->env['DB_TABLE_PURCHASES']);
     }
 	
 	private function getPage():string
@@ -62,9 +63,16 @@ class App
 		return $productTypeList;
 	}
 	
-	private function recordToDb(array $data, string $table, int $arrayLvl)
+	private function recordTypesToDb(array $data, string $table)
 	{
-		$db = new DB($this->env);
-		$db->insert($data, $table, $arrayLvl);
+		$db = new PurchaseType($this->env);
+		$db->insert($data, $table);
+	}
+	
+	private function recordPurchaseToDb(array $data, string $table)
+	{
+		$db = new Purchase($this->env);
+		$db->setReferenceTable($this->env['DB_TABLE_TYPES']);
+		$db->insert($data, $table);
 	}
 }
