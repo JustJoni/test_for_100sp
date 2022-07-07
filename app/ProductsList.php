@@ -25,7 +25,7 @@ class ProductsList
 		$productTypeList = array();
 		foreach($productList as $key=>$product)
 		{
-			$productTypeList[$product['purchasesName']] = $product['purchasesName'];
+			$productTypeList[$product['purchasesType']] = $product['purchasesType'];
 		}
 		
 		return $productTypeList;
@@ -59,10 +59,10 @@ class ProductsList
 	{
 		
 		$data = $crawler->filter($classes['parentBlocksClasses'])->each(function ($node) use ($classes, $imgAttr) {
-			$purchasesName = '';
+			$purchasesType = '';
 			$blocks = [];
-			$purchasesName = $node->filter($classes['purchasesClasses'])->innerText('Default');
-			$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesName, $classes, $imgAttr) {
+			$purchasesType = $node->filter($classes['purchasesClasses'])->innerText('Default');
+			$blocks = $node->filter($classes['childrenBlocksClasses'])->each(function ($nodeChild) use($purchasesType, $classes, $imgAttr) {
 				$href = '';
 				$img = '';
 				$title = '';
@@ -71,7 +71,7 @@ class ProductsList
 				$img = $nodeChild->filter($classes['imgClasses'])->attr($imgAttr);
 				$title = $nodeChild->filter($classes['titleClasses'])->innerText('Default');
 				
-				return compact('purchasesName','href','img','title');
+				return compact('purchasesType','href','img','title');
 			});
 
 			return $blocks;
