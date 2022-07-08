@@ -12,8 +12,6 @@ class Purchase extends DB
     {
 		$this->clearTable($table);
 		$purchaseTypes = $this->selectAllTypes();
-		// var_dump($data);
-		// die();
 		$data = $this->changePurchaseTypesNamesToID($data, $purchaseTypes);
 		$sql = $this->generateSqlToInsert($data, $table);
 		$this->conn->exec($sql);
@@ -24,6 +22,7 @@ class Purchase extends DB
 		$this->refTable = $table;
 	}
 	
+	//Забираем типы покупок из таблицы, чтобы вставлять в покупки индексы типов
 	private function selectAllTypes():array
 	{
 		$types = array();
@@ -36,6 +35,7 @@ class Purchase extends DB
 		return $types;
 	}
 	
+	//Меняем типы покупок на соответствующие индексы
 	private function changePurchaseTypesNamesToID(array $purchases, array $types):array
 	{		
 		foreach($purchases as $key=>$record)

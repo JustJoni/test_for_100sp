@@ -35,7 +35,7 @@ class App
 		$list = $this->getProductList($page);
 		$productList = $list->productList;
 		$productTypeList = $this->getProductTypeList($list);
-		//$this->recordTypesToDb($productTypeList, $this->env['DB_TABLE_TYPES']);
+		$this->recordTypesToDb($productTypeList, $this->env['DB_TABLE_TYPES']);
 		$this->recordPurchaseToDb($productList, $this->env['DB_TABLE_PURCHASES']);
     }
 	

@@ -1,0 +1,6 @@
+composer
+composer.phar
+/vendor
+/tools
+*.cache
+/nbproject/private/
