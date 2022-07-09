@@ -8,10 +8,7 @@
         "symfony/dom-crawler": "^6.1",
         "symfony/css-selector": "^6.1"
     },
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^3.8"
-	},
-    "autoload": {
+	"autoload": {
         "psr-4": {
             "TestSolution\\": "app/"
         },
@@ -22,5 +19,8 @@
     },
 	"scripts": {
 		"test": "vendor/bin/php-cs-fixer fix --diff -vvv --allow-risky=yes"
-	}
+	},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8"
+    }
 }

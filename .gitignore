@@ -1,5 +1,6 @@
 composer
 composer.phar
+.php-cs-fixer.php
 /vendor
 /tools
 *.cache
