@@ -5,15 +5,27 @@ namespace TestSolution;
 class Purchase extends DB
 {
     private string $refTable = '';
+	private int $cityID = 0;
 
-    public function insert(array $data, string $table)
+    public function getSQL(array $data, string $table):string
     {
-        $this->clearTable($table);
-        $purchaseTypes = $this->selectAllTypes();
-        $data = $this->changePurchaseTypesNamesToID($data, $purchaseTypes);
-        $sql = $this->generateSqlToInsert($data, $table);
-        $this->conn->exec($sql);
+		$sql = '';
+		if ($this->cityID == 0) {
+			print_r('Город не определён! Запись в базу не будет выполнена!');
+		}
+		else {			
+			$purchaseTypes = $this->selectAllTypes();
+			$data = $this->changePurchaseTypesNamesToID($data, $purchaseTypes);
+			$sql = $this->generateSqlToInsert($data, $table);
+		}
+		
+		return $sql;
     }
+
+	public function setCityID(int $cityID)
+	{
+		$this->cityID = $cityID;
+	}
 
     public function setReferenceTable(string $table)
     {
@@ -47,13 +59,14 @@ class Purchase extends DB
         $records = '';
         $lastRecord = array_key_last($data);
         foreach ($data as $key => $record) {
-            $records .= "('".$record['purchasesType']."','".$record['href']."','".$record['img']."','".$record['title']."')";
+			$title = $this->conn->quote($record['title']);
+            $records .= "(".$record['purchasesType'].",".$this->cityID.",'".$record['href']."','".$record['img']."',".$title.")";
             if ($key != $lastRecord) {
                 $records .= ',';
             }
         }
-        $sql = 'INSERT INTO '.$table.' (purchase_id,href,img,name)
-			 VALUES '.$records;
+        $sql = 'INSERT INTO '.$table.' (purchase_id,city_id,href,img,name)
+			 VALUES '.$records.';';
 
         return $sql;
     }

@@ -7,10 +7,21 @@ use Symfony\Component\DomCrawler\Crawler;
 class ProductsList
 {
     public array $productList;
+	public string $city;
 
     public function __construct(private string $page)
     {
+		$this->city = $this->getCity($page);
     }
+	
+	private function getCity(string $page):string
+	{
+		$city = '';
+		$crawler = new Crawler($page);
+		$city = $crawler->filter('.city-info .delivery a.city-selector-widget-link')->text('Не распознан');
+		
+		return $city;
+	}
 
     public function getProductList()
     {
@@ -50,6 +61,33 @@ class ProductsList
 
         return $blocks;
     }
+	
+	private function parsePurchasesSliderBlocks(): array
+    {
+        $blocks = array();
+        $data = array();
+        $crawler = new Crawler($this->page);
+
+        $classes = array(
+            'parentBlocksClasses' => 'div.purchases:not(.block)',
+            'purchasesClasses' => 'h2.title',
+            'childrenBlocksClasses' => 'div.purchase-slider > div.purchase-slider-item',
+            'hrefClasses' => 'a.purchase-slider-item__image',
+            'imgClasses' => 'a.purchase-slider-item__image',
+            'titleClasses' => 'div.purchase-slider-item > a.purchase-slider-item__title',
+        );
+        $imgAttr = 'style';
+        $data = $this->parseBlocks($crawler, $classes, $imgAttr);
+
+        foreach ($data[0] as $key => $block) {
+            $blocks[$key] = $block;
+            $img = array();
+            preg_match('/"(.+)"/', $block['img'], $img);
+            $blocks[$key]['img'] = $img[1];
+        }
+
+        return $blocks;
+    }
 
     private function parseBlocks(Crawler $crawler, array $classes, string $imgAttr = 'src'): array
     {
@@ -83,32 +121,5 @@ class ProductsList
         }
 
         return $dBlocks;
-    }
-
-    private function parsePurchasesSliderBlocks(): array
-    {
-        $blocks = array();
-        $data = array();
-        $crawler = new Crawler($this->page);
-
-        $classes = array(
-            'parentBlocksClasses' => 'div.purchases:not(.block)',
-            'purchasesClasses' => 'h2.title',
-            'childrenBlocksClasses' => 'div.purchase-slider > div.purchase-slider-item',
-            'hrefClasses' => 'a.purchase-slider-item__image',
-            'imgClasses' => 'a.purchase-slider-item__image',
-            'titleClasses' => 'div.purchase-slider-item > a.purchase-slider-item__title',
-        );
-        $imgAttr = 'style';
-        $data = $this->parseBlocks($crawler, $classes, $imgAttr);
-
-        foreach ($data[0] as $key => $block) {
-            $blocks[$key] = $block;
-            $img = array();
-            preg_match('/"(.+)"/', $block['img'], $img);
-            $blocks[$key]['img'] = $img[1];
-        }
-
-        return $blocks;
     }
 }

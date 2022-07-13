@@ -6,16 +6,17 @@ use GuzzleHttp;
 
 class DownloadPage
 {
-    public function __construct(public string $url)
+    public function __construct(public string $baseUrl, public string $pageUrl)
     {
     }
 
     public function getPage(): string
     {
         $client = new GuzzleHttp\Client(array(
-          'base_uri' => $this->url,
+			'allow_redirects'=>true,
+			'base_uri' => $this->baseUrl,
         ));
-        $response = $client->request('GET', '/', array(
+        $response = $client->request('GET', $this->pageUrl, array(
             'delay' => 10,
             'stream' => true,
             'read_timeout' => 10,
