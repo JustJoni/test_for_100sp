@@ -2,6 +2,8 @@
 
 namespace TestSolution;
 
+use PDO;
+
 class Purchase extends DB
 {
     private string $refTable = '';
@@ -70,4 +72,42 @@ class Purchase extends DB
 
         return $sql;
     }
+	
+	public function getPurchasesByCity(string $cityName = ''):array
+	{
+		$result = array();
+		$cityTable = $this->params['DB_TABLE_CITYES'];
+		$purchaseTable = $this->params['DB_TABLE_PURCHASES'];
+		$purchaseTypesTable = $this->params['DB_TABLE_TYPES'];
+		$sql = "SELECT ".$cityTable.".name AS city, ".$purchaseTypesTable.".name AS purchase_type, ".$purchaseTable.".name AS title, ".$purchaseTable.".img AS images_url, ".$purchaseTable.".href AS purchase_url 
+			FROM ".$purchaseTable." 
+			JOIN ".$purchaseTypesTable." ON ".$purchaseTable.".purchase_id = ".$purchaseTypesTable.".id 
+			JOIN ".$cityTable." ON ".$purchaseTable.".city_id = ".$cityTable.".id";
+
+		if ($cityName == '') {
+			$result = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		}
+		else {
+			$sql .= " WHERE ".$cityTable.".id = :city";
+			$cityID = $this->getCityID($cityName);
+			$query = $this->conn->prepare($sql);
+			$query->bindParam(':city', $cityID);
+			$query->execute();
+			$result = $query->fetchAll(PDO::FETCH_ASSOC);
+		}
+		
+		return $result;
+	}
+	
+	private function getCityID(string $cityName):int
+	{
+		$cityID = 0;
+		$sql = "SELECT id FROM ".$this->params['DB_TABLE_CITYES']." WHERE name LIKE :city";
+		$query = $this->conn->prepare($sql);
+		$query->bindParam(':city', $cityName);
+		$query->execute();
+		$cityID = $query->fetch();
+		
+		return $cityID['id'];
+	}
 }
