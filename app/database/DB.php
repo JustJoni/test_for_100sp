@@ -13,7 +13,7 @@ class DB
         $this->conn = new PDO('mysql:host='.$params['DB_ADDRESS'].';port='.$params['DB_PORT'].';dbname='.$params['DB_NAME'], $params['DB_USER'], $params['DB_PASS']);
     }
 
-    public function insert(array|string $data, string $table):int
+    public function insert(array $data, string $table):int
     {
 		$sql = '';
 		if (is_array($data)) {

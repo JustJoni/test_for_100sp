@@ -2,21 +2,21 @@
 
 namespace TestSolution;
 
+use PDO;
+
 class PurchaseType extends DB
 {
-    protected function generateSqlToInsert(array $data, string $table): string
-    {
-        $records = '';
-        $lastRecord = array_key_last($data);
-        foreach ($data as $key => $record) {
-            $records .= '("'.$record.'")';
-            if ($key != $lastRecord) {
-                $records .= ',';
-            }
+    public function insert(array $data, string $table): int
+    {	
+		$this->conn->beginTransaction();
+		$query = $this->conn->prepare("INSERT INTO ".$table." (name) VALUES (?)");
+        foreach ($data as $record) {
+			$query->bindParam(1,$record,PDO::PARAM_STR);
+			$query->execute();
         }
-        $sql = 'INSERT INTO '.$table.' (name)
-			 VALUES '.$records;
+		$lastRecord = $this->conn->lastInsertId();
+		$this->conn->commit();
 
-        return $sql;
+        return $lastRecord;
     }
 }

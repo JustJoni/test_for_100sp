@@ -3,6 +3,7 @@
 namespace TestSolution;
 
 use PDO;
+use Exception;
 
 class Purchase extends DB
 {
@@ -12,14 +13,7 @@ class Purchase extends DB
     public function getSQL(array $data, string $table):string
     {
 		$sql = '';
-		if ($this->cityID == 0) {
-			print_r('Город не определён! Запись в базу не будет выполнена!');
-		}
-		else {			
-			$purchaseTypes = $this->selectAllTypes();
-			$data = $this->changePurchaseTypesNamesToID($data, $purchaseTypes);
-			$sql = $this->generateSqlToInsert($data, $table);
-		}
+		
 		
 		return $sql;
     }
@@ -56,22 +50,33 @@ class Purchase extends DB
         return $purchases;
     }
 
-    protected function generateSqlToInsert(array $data, string $table): string
+    public function insert(array $data, string $table): int
     {
+		try {
+			if ($this->cityID == 0) {
+				throw new Exception('Город не определён! Запись в базу не будет выполнена!');
+			}
+			else {			
+				$purchaseTypes = $this->selectAllTypes();
+				$data = $this->changePurchaseTypesNamesToID($data, $purchaseTypes);
+			}
+		}
+		catch (Exception $e) {
+			echo $e->getMessage();
+			die();
+		}
+		
         $records = '';
-        $lastRecord = array_key_last($data);
+		$this->conn->beginTransaction();
+		$query = $this->conn->prepare("INSERT INTO ".$table." (purchase_id,city_id,href,img,name) VALUES (:purchasesType,:cityID,:href,:img,:title)");
         foreach ($data as $key => $record) {
-			$title = $this->conn->quote($record['title']);
-            $records .= "(".$record['purchasesType'].",".$this->cityID.",'".$record['href']."','".$record['img']."',".$title.")";
-            if ($key != $lastRecord) {
-                $records .= ',';
-            }
-        }
-        $sql = 'INSERT INTO '.$table.' (purchase_id,city_id,href,img,name)
-			 VALUES '.$records.';';
-
-        return $sql;
-    }
+			$record['cityID'] = $this->cityID;
+			$query->execute($record);
+		}
+		$this->conn->commit();
+			
+		return $this->conn->lastInsertId();
+	}
 	
 	public function getPurchasesByCity(string $cityName = ''):array
 	{

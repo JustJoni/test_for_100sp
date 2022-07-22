@@ -39,9 +39,8 @@ class App
 			$dataCity = ['name' => $list->city, 'url' => $urlCity];
 			$cityID = $this->recordCity($dataCity, $this->env['DB_TABLE_CITYES']);
 			$this->recordPurchaseTypesToDb($productTypeList, $this->env['DB_TABLE_TYPES']);
-			$sqlRecordPurchasesToDb .= $this->getSQLForInsert($productList, $this->env['DB_TABLE_PURCHASES'], $cityID);
+			$this->recordPurchaseToDb($productList, $this->env['DB_TABLE_PURCHASES'], $cityID);
 		}
-		$this->recordPurchaseToDb($sqlRecordPurchasesToDb, $this->env['DB_TABLE_PURCHASES']);
     }
 
     private function getPage($baseUrl, $pageUrl): string
@@ -92,20 +91,20 @@ class App
         $db->insert($data, $table);
     }
 
-    private function getSQLForInsert(array $data, string $table, int $cityID):string
+    private function recordPurchaseToDb(array $data, string $table, int $cityID):string
     {
 		$sql = '';
         $db = new Purchase($this->env);
         $db->setReferenceTable($this->env['DB_TABLE_TYPES']);
 		$db->setCityID($cityID);
-		$sql = $db->getSQL($data, $table);
+		$sql = $db->insert($data, $table);
 		
 		return $sql;
     }
 	
-	private function recordPurchaseToDb($sql, $table)
+	/*private function recordPurchaseToDb($sql, $table)
 	{
 		$db = new DB($this->env);
 		$db->insert($sql, $table);
-	}
+	}*/
 }

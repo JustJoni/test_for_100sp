@@ -2,26 +2,22 @@
 
 namespace TestSolution;
 
+use PDO;
+
 class PurchasesCity extends DB
 {
-    protected function generateSqlToInsert(array $data, string $table): string
+    public function insert(array $data, string $table): int
     {
         $records = '';
 		$columns = '';
         $lastRecord = array_key_last($data);
-		foreach ($data as $columnName=>$record) {
-			if ($columnName != $lastRecord) {
-				$records .= '"'.$record.'"'.',';
-				$columns .= $columnName.',';
-			}
-			else {
-				$records .= '"'.$record.'"';
-				$columns .= $columnName;
-			}
-		}
-        $sql = 'INSERT INTO '.$table.' ('.$columns.
-			') VALUES ('.$records.')';
 
-        return $sql;
+		$this->conn->beginTransaction();
+		$query = $this->conn->prepare("INSERT INTO ".$table." (name,url) VALUES (:name,:url)");
+		$query->execute($data);
+		$cityID = $this->conn->lastInsertId();
+		$this->conn->commit();
+		
+		return $cityID;
     }
 }
